@@ -1,5 +1,5 @@
 ---
-- name: '[SUDO] enable sudo without tty'
+- name: '[SUDO-TTY] enable sudo without tty'
   replace:
     path: /etc/sudoers
     regexp: '^Defaults\s*requiretty'
