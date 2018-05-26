@@ -1,0 +1,21 @@
+---
+- name: '[SUDO] enable sudo without tty'
+  replace:
+    path: /etc/sudoers
+    regexp: '^Defaults\s*requiretty'
+    replace: 'Defaults !requiretty'
+    backup: yes
+
+- name: '[ENABLE-REPOS] Enable repositories'
+  template:
+    src: repositories_template.j2
+    dest: /etc/yum.repos.d/open_tier-app.repo
+    mode: 0644
+
+- name: '[INSTALL-TOOLS] Install base tools and packages'
+  yum:
+    name: "{{ item }}"
+    state: installed
+  with_items:
+      - httpie
+      - python-pip

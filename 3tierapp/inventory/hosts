@@ -1,0 +1,29 @@
+[all:vars]
+#GUID=7a71
+
+[internal:vars]
+ansible_ssh_user=ec2-user
+ansible_become=yes
+timeout=60
+
+[bastions]
+bastion 
+
+[frontends]
+frontend ansible_host=frontend1."{{ GUID }}".internal
+
+[appdbs]
+appdb1 ansible_host=appdb1."{{ GUID }}".internal
+
+[apps]
+app1 ansible_host=app1."{{ GUID }}".internal
+app2 ansible_host=app2."{{ GUID }}".internal
+
+[support]
+support1 ansible_host=support1."{{ GUID }}".internal
+
+[internal:children]
+frontends
+appdbs
+apps
+
