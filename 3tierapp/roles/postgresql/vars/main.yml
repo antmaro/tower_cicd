@@ -1,0 +1,8 @@
+---
+postgresql_daemon: postgresql
+postgresql_packages:
+  - postgresql
+  - postgresql-server
+  - postgresql-contrib
+  - postgresql-libs
+postgresql_data_dir: "/var/lib/pgsql/data"

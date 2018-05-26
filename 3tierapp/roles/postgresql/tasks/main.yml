@@ -1,0 +1,22 @@
+---
+- name: '[INSTALLATION] Install postgresql packages'
+  yum:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - "{{ postgresql_packages }}"
+
+- name: '[CHECK] Ensure PostgreSQL database is initialized'
+  stat:
+    path: "{{ postgresql_data_dir }}/PG_VERSION"
+  register: postgresql_dir
+
+- name: '[INITIALIZE] Ini {{ postgresql_daemon }} '
+  command: postgresql-setup initdb
+  when: not postgresql_dir.stat.exists
+
+- name: '[SERVICE] Enable {{ postgresql_daemon }} service at boot and restart'
+  service:
+    name: "{{ postgresql_daemon }}"
+    enabled: yes
+    state: started
