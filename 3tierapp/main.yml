@@ -12,11 +12,13 @@
   roles:
     - base-system
     - ha-proxy
+
 - name: '[MAIN][APPDBS] Setup app tier'
   hosts: appdbs
   become: yes
   roles:
     - base-system
+    - tomcat
 
 - name: '[MAIN][APPS] Setup app tier'
   hosts: apps
