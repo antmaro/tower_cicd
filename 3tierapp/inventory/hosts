@@ -7,7 +7,7 @@ ansible_become=yes
 timeout=60
 
 [bastions]
-bastion 
+bastion
 
 [frontends]
 frontend ansible_host=frontend1."{{ GUID }}".internal
@@ -26,4 +26,3 @@ support1 ansible_host=support1."{{ GUID }}".internal
 frontends
 appdbs
 apps
-

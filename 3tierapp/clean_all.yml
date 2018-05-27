@@ -1,0 +1,10 @@
+---
+- name: '[CLEAN] Clean all laboratory'
+  hosts: all
+  become: true
+  pre_tasks:
+    - debug:
+        msg: '.. Deleting all configuration'
+  roles:
+    - clean
+

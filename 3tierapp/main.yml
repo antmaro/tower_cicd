@@ -6,6 +6,12 @@
     - debug:
         msg: "Starting the deploy for the 3Tier APP ...."
 
+#- name: '[MAIN][PRE] Setup the environment'
+#  hosts: localhost
+#  becomes: yes
+#  roles:
+#    - pre-tasks
+
 - name: '[MAIN][FRONTEND] Setup load-balancer tier'
   hosts: frontends
   become: yes
@@ -18,10 +24,25 @@
   become: yes
   roles:
     - base-system
-    - tomcat
+    - postgresql
 
 - name: '[MAIN][APPS] Setup app tier'
   hosts: apps
   become: yes
   roles:
     - base-system
+    - tomcat
+
+- name: '[MAIN][SMOKE-TESTS] Perform some smoke tests'
+  hosts: localhost
+  tasks:
+    - name: Check APP
+      uri:
+        url: http://frontend1.7a71.example.opentlc.com
+        return_content: yes
+      register: get_result
+      until: get_result.content is search("app1")
+      retries: 3
+      delay: 5
+    - debug:
+        msg: "El resultado es {{ get_result.content }}"
