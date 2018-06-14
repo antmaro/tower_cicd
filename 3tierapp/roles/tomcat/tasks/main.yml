@@ -4,6 +4,13 @@
     name: "{{ tomcat_var }}"
     state: latest
 
+- name: '[TEMPLATE] Ensure {{ tomcat_web_root }} directory is created'
+  file:
+    path: "{{ tomcat_web_root}}"
+    state: directory
+    mode: 0755
+
+
 - name: '[TEMPLATE] Setup {{ tomcat_var }} configuration from template'
   template:
     src: tomcat_template.j2
