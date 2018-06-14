@@ -38,7 +38,7 @@
   tasks:
     - name: Check APP
       uri:
-        url: http://frontend1.7a71.example.opentlc.com
+        url: http://frontend1.379b.example.opentlc.com
         return_content: yes
       register: get_result
       until: get_result.content is search("app1")
