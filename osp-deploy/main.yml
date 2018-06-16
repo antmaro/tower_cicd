@@ -31,7 +31,7 @@
         disk: 10
 
 - name: '[MAIN][OSP] Create security group and provision the infra for 3tierAPP in OpenStack'
-  - hosts: jumpbox
+  hosts: jumpbox
     roles:
       - osp-securitygroup
     tasks:
