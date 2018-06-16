@@ -6,8 +6,10 @@
     - debug:
         msg: "[MAIN][OSP] Starting the OpenStack infrastructure  ...."
 
-
-- name: '[MAIN][OSP] Network configuration'
+# Config a router to connect between the private network and your
+# internal physical network. Also, create key pairs to provide access to
+# the instances
+- name: '[MAIN][OSP] Network configuration and creation of key pairs'
   hosts: jumpbox
   #become: yes
   roles:
