@@ -15,3 +15,17 @@
   roles:
     - osp-network
     - osp-keypair
+
+# Create a Custom flavor that defines the compute, memory and storage capacity
+# of a Nova node
+- name: '[MAIN][OSP] Create m2.small flavor'
+  hosts: jumpbox
+  tasks:
+    - name: Create a m2.small flavor
+      os_nova_flavor:
+        cloud: ospcloud
+        state: present
+        name: m2.small
+        ram: 2048
+        vcpus: 1
+        disk: 10
