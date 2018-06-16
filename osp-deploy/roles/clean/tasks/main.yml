@@ -1,0 +1,34 @@
+---
+
+- name: '[CLEAN] Disable sudo without tty'
+  replace:
+    path: /etc/sudoers
+    regexp: 'Defaults\s*!requiretty'
+    replace: '^Defaults requiretty'
+    backup: yes
+
+- name: '[CLEAN] disable repos'
+  template:
+    src: /dev/null
+    dest: /etc/yum.repos.d/open_tier-app.repo
+
+- name: '[CLEAN] Remove base tools and tier app packages'
+  yum:
+    name: "{{ item }}"
+    state: absent
+  with_items:
+    - httpie
+    - python-pip
+    - haproxy
+    - tomcat
+    - postgresql-server
+
+- name: '[CLEAN-TOMCAT] Delete tomcat webapps directory'
+  file:
+    path: /usr/share/tomcat/webapps
+    state: absent
+
+- name: '[CLEAN-HAPROXY] Delete haproxy config'
+  file:
+    path: /etc/haproxy/haproxy.cfg
+    state: absent

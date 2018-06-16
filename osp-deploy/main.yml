@@ -1,0 +1,14 @@
+---
+- name: '[MAIN][OSP] Starting the main'
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - debug:
+        msg: "[MAIN][OSP] Starting the OpenStack infrastructure  ...."
+
+
+- name: '[MAIN][OSP] Network configuration'
+  hosts: jumpbox
+  #become: yes
+  roles:
+    - osp-network
