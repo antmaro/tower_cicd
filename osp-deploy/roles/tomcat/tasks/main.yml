@@ -1,0 +1,24 @@
+---
+- name: '[INSTALLATION] Install {{ tomcat_var }}'
+  yum:
+    name: "{{ tomcat_var }}"
+    state: latest
+
+- name: '[TEMPLATE] Ensure {{ tomcat_web_root }} directory is created'
+  file:
+    path: "{{ tomcat_web_root}}"
+    state: directory
+    mode: 0755
+
+
+- name: '[TEMPLATE] Setup {{ tomcat_var }} configuration from template'
+  template:
+    src: tomcat_template.j2
+    dest: "{{ tomcat_web_root }}/index.html"
+    mode: 0644
+
+- name: '[SERVICE] Enable {{ tomcat_var }} service at boot and restart'
+  service:
+    name: "{{ tomcat_var }}"
+    enabled: yes
+    state: restarted
