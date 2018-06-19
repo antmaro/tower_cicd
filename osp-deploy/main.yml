@@ -88,3 +88,19 @@
   roles:
     - base-system
     - tomcat
+
+- name: '[MAIN][SMOKE-TESTS] Perform some smoke tests'
+  hosts: localhost
+  tasks:
+    - name: Check APP
+      uri:
+        url: http://{{ item }}
+        return_content: yes
+      register: get_result
+      until: get_result.content is search("app1")
+      retries: 3
+      delay: 5
+      with_items: groups['frontends']
+    
+    - debug:
+        msg: "El resultado es {{ get_result.content }}"
